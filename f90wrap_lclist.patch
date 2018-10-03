@@ -1,0 +1,20 @@
+--- f90wrap_lclist.f90	2018-10-02 17:40:17.140620000 +0100
++++ f90wrap_lclist_new.f90	2018-10-02 17:40:47.188941000 +0100
+@@ -168,7 +168,7 @@
+     ret_dist = cell_distance_squared(T=t, avec=avec)
+ end subroutine f90wrap_cell_distance_squared
+ 
+-subroutine f90wrap_in_list(vec, ret_in_, list, n0, n1, n2)
++subroutine f90wrap_in_list1(vec, ret_in_, list, n0, n1, n2)
+     use lclist, only: in_list
+     implicit none
+     
+@@ -182,7 +182,7 @@
+     integer :: n2
+     !f2py intent(hide), depend(list) :: n2 = shape(list,1)
+     ret_in_ = in_list(vec=vec, list=list)
+-end subroutine f90wrap_in_list
++end subroutine f90wrap_in_list1
+ 
+ ! End of module lclist defined in file ext/lclist.f90
+ 

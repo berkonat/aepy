@@ -1,0 +1,74 @@
+--- f90wrap_sfsetup.f90	2018-10-03 15:57:27.445481000 +0100
++++ f90wrap_sfsetup_new.f90	2018-10-03 16:42:57.529380000 +0100
+@@ -553,7 +553,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -584,7 +584,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -615,7 +615,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -637,7 +637,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -654,7 +654,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -809,7 +809,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -828,7 +828,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -846,7 +846,7 @@
+     implicit none
+     
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(20) :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type

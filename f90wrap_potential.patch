@@ -1,0 +1,74 @@
+--- f90wrap_potential.f90	2018-10-03 15:45:23.729026000 +0100
++++ f90wrap_potential_new.f90	2018-10-03 15:54:28.735726000 +0100
+@@ -349,7 +349,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type
+@@ -380,7 +380,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type
+@@ -411,7 +411,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type
+@@ -433,7 +433,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type
+@@ -450,7 +450,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type
+@@ -499,7 +499,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type
+@@ -518,7 +518,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type
+@@ -549,7 +549,7 @@
+     implicit none
+     
+     type nnpot_xntypes_array
+-        type(nnpot), dimension(ntypes) :: items
++        type(nnpot), dimension(20) :: items
+     end type nnpot_xntypes_array
+     
+     type nnpot_xntypes_array_ptr_type

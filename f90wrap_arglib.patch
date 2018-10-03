@@ -1,0 +1,20 @@
+--- f90wrap_arglib.f90	2018-10-02 17:41:58.036549000 +0100
++++ f90wrap_arglib_new.f90	2018-10-02 17:41:47.791457000 +0100
+@@ -25,7 +25,7 @@
+     call args_get(iarg=iarg, value=value)
+ end subroutine f90wrap_args_get
+ 
+-subroutine f90wrap_in_list(string_bn, search, ret_found, delim)
++subroutine f90wrap_in_list2(string_bn, search, ret_found, delim)
+     use arglib, only: in_list
+     implicit none
+     
+@@ -34,7 +34,7 @@
+     logical, intent(out) :: ret_found
+     character(1), optional, intent(in) :: delim
+     ret_found = in_list(string=string_bn, search=search, delim=delim)
+-end subroutine f90wrap_in_list
++end subroutine f90wrap_in_list2
+ 
+ subroutine f90wrap_args_switch_c1(switch_bn, value, pos, default_bn)
+     use arglib, only: args_switch

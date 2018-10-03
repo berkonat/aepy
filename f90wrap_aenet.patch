@@ -1,0 +1,165 @@
+--- f90wrap_aenet.f90	2018-10-02 17:48:39.198128000 +0100
++++ f90wrap_aenet_new2.f90	2018-10-03 15:34:14.028817000 +0100
+@@ -36,25 +36,21 @@
+     call aenet_load_potential(type_id=type_id, filename=filename, stat=stat)
+ end subroutine f90wrap_aenet_load_potential
+ 
+-subroutine f90wrap_aenet_all_loaded(bind, ret_aenet_all_loaded, c)
++subroutine f90wrap_aenet_all_loaded(ret_aenet_all_loaded)
+     use aenet, only: aenet_all_loaded
+     implicit none
+     
+-    real :: bind
+-    real, intent(out) :: ret_aenet_all_loaded
+-    real :: c
+-    ret_aenet_all_loaded = aenet_all_loaded(bind=bind, c=c)
++    logical(1), intent(out) :: ret_aenet_all_loaded
++    ret_aenet_all_loaded = aenet_all_loaded()
+ end subroutine f90wrap_aenet_all_loaded
+ 
+-subroutine f90wrap_aenet_free_atom_energy(type_id, bind, ret_e_atom, c)
++subroutine f90wrap_aenet_free_atom_energy(type_id, ret_e_atom)
+     use aenet, only: aenet_free_atom_energy
+     implicit none
+     
+     integer(4), intent(in) :: type_id
+-    real :: bind
+-    real(4), intent(out) :: ret_e_atom
+-    real :: c
+-    ret_e_atom = aenet_free_atom_energy(type_id=type_id, bind=bind, c=c)
++    real(8), intent(out) :: ret_e_atom
++    ret_e_atom = aenet_free_atom_energy(type_id=type_id)
+ end subroutine f90wrap_aenet_free_atom_energy
+ 
+ subroutine f90wrap_aenet_atomic_energy(coo_i, type_i, n_j, coo_j, type_j, e_i, &
+@@ -62,12 +58,12 @@
+     use aenet, only: aenet_atomic_energy
+     implicit none
+     
+-    real(4), dimension(3), intent(in) :: coo_i
++    real(8), dimension(3), intent(in) :: coo_i
+     integer(4), intent(in) :: type_i
+     integer(4), intent(in) :: n_j
+-    real(4), intent(in), dimension(3,n0) :: coo_j
++    real(8), intent(in), dimension(3,n0) :: coo_j
+     integer(4), intent(in), dimension(n1) :: type_j
+-    real(4), intent(out) :: e_i
++    real(8), intent(out) :: e_i
+     integer(4), intent(out) :: stat
+     integer :: n0
+     !f2py intent(hide), depend(coo_j) :: n0 = shape(coo_j,1)
+@@ -82,16 +78,16 @@
+     use aenet, only: aenet_atomic_energy_and_forces
+     implicit none
+     
+-    real(4), dimension(3), intent(in) :: coo_i
++    real(8), dimension(3), intent(in) :: coo_i
+     integer(4), intent(in) :: type_i
+     integer(4), intent(in) :: index_i
+     integer(4), intent(in) :: n_j
+-    real(4), intent(in), dimension(3,n0) :: coo_j
++    real(8), intent(in), dimension(3,n0) :: coo_j
+     integer(4), intent(in), dimension(n1) :: type_j
+     integer(4), intent(in), dimension(n2) :: index_j
+     integer(4), intent(in) :: natoms
+-    real(4), intent(out) :: e_i
+-    real(4), intent(inout), dimension(3,n3) :: f
++    real(8), intent(out) :: e_i
++    real(8), intent(inout), dimension(3,n3) :: f
+     integer(4), intent(out) :: stat
+     integer :: n0
+     !f2py intent(hide), depend(coo_j) :: n0 = shape(coo_j,1)
+@@ -130,12 +126,12 @@
+     use aenet, only: aenet_nbl_init
+     implicit none
+     
+-    real(4), dimension(3,3), intent(in) :: latt_vec
++    real(8), dimension(3,3), intent(in) :: latt_vec
+     integer(4), intent(in) :: natoms
+     integer(4), intent(in), dimension(n0) :: atom_types
+-    real(4), intent(inout), dimension(3,n1) :: coords
+-    real :: cartesian
+-    real :: pbc
++    real(8), intent(inout), dimension(3,n1) :: coords
++    logical(1) :: cartesian
++    logical(1) :: pbc
+     integer :: n0
+     !f2py intent(hide), depend(atom_types) :: n0 = shape(atom_types,0)
+     integer :: n1
+@@ -158,8 +154,8 @@
+     
+     integer(4), intent(in) :: iatom
+     integer(4), intent(inout) :: nnb
+-    real(4), intent(inout), dimension(3,n0) :: nbcoo
+-    real(4), intent(inout), dimension(n1) :: nbdist
++    real(8), intent(inout), dimension(3,n0) :: nbcoo
++    real(8), intent(inout), dimension(n1) :: nbdist
+     integer(4), intent(inout), dimension(n2) :: nblist
+     integer(4), intent(inout), dimension(n3) :: nbtype
+     integer :: n0
+@@ -206,12 +202,12 @@
+     implicit none
+     
+     integer(4), intent(in) :: itype0
+-    real(4), dimension(3), intent(in) :: coo0
++    real(8), dimension(3), intent(in) :: coo0
+     integer(4), intent(in) :: nat
+     integer(4), intent(in), dimension(n0) :: itype1
+-    real(4), intent(in), dimension(3,n1) :: coo1
++    real(8), intent(in), dimension(3,n1) :: coo1
+     integer(4), intent(in) :: nv
+-    real(4), intent(inout), dimension(n2) :: values
++    real(8), intent(inout), dimension(n2) :: values
+     integer(4), intent(out) :: stat
+     integer :: n0
+     !f2py intent(hide), depend(itype1) :: n0 = shape(itype1,0)
+@@ -229,10 +225,10 @@
+     implicit none
+     
+     integer(4), intent(in) :: nv
+-    real(4), intent(in), dimension(n0) :: values
++    real(8), intent(in), dimension(n0) :: values
+     integer(4), intent(in) :: nx
+-    real(4), intent(inout), dimension(n1) :: x
+-    real(4), intent(inout), dimension(n2) :: y
++    real(8), intent(inout), dimension(n1) :: x
++    real(8), intent(inout), dimension(n2) :: y
+     integer(4), intent(out) :: stat
+     integer :: n0
+     !f2py intent(hide), depend(values) :: n0 = shape(values,0)
+@@ -391,7 +387,7 @@
+ subroutine f90wrap_aenet__get__aenet_Rc_min(f90wrap_aenet_Rc_min)
+     use aenet, only: aenet_aenet_Rc_min => aenet_Rc_min
+     implicit none
+-    real(4), intent(out) :: f90wrap_aenet_Rc_min
++    real(8), intent(out) :: f90wrap_aenet_Rc_min
+     
+     f90wrap_aenet_Rc_min = aenet_aenet_Rc_min
+ end subroutine f90wrap_aenet__get__aenet_Rc_min
+@@ -399,7 +395,7 @@
+ subroutine f90wrap_aenet__set__aenet_Rc_min(f90wrap_aenet_Rc_min)
+     use aenet, only: aenet_aenet_Rc_min => aenet_Rc_min
+     implicit none
+-    real(4), intent(in) :: f90wrap_aenet_Rc_min
++    real(8), intent(in) :: f90wrap_aenet_Rc_min
+     
+     aenet_aenet_Rc_min = f90wrap_aenet_Rc_min
+ end subroutine f90wrap_aenet__set__aenet_Rc_min
+@@ -407,7 +403,7 @@
+ subroutine f90wrap_aenet__get__aenet_Rc_max(f90wrap_aenet_Rc_max)
+     use aenet, only: aenet_aenet_Rc_max => aenet_Rc_max
+     implicit none
+-    real(4), intent(out) :: f90wrap_aenet_Rc_max
++    real(8), intent(out) :: f90wrap_aenet_Rc_max
+     
+     f90wrap_aenet_Rc_max = aenet_aenet_Rc_max
+ end subroutine f90wrap_aenet__get__aenet_Rc_max
+@@ -415,7 +411,7 @@
+ subroutine f90wrap_aenet__set__aenet_Rc_max(f90wrap_aenet_Rc_max)
+     use aenet, only: aenet_aenet_Rc_max => aenet_Rc_max
+     implicit none
+-    real(4), intent(in) :: f90wrap_aenet_Rc_max
++    real(8), intent(in) :: f90wrap_aenet_Rc_max
+     
+     aenet_aenet_Rc_max = f90wrap_aenet_Rc_max
+ end subroutine f90wrap_aenet__set__aenet_Rc_max
