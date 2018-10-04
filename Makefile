@@ -21,14 +21,17 @@
 .PHONY: all
 
 all:
-	git clone https://github.com/berkonat/aenet.git
-	cd aenet/src
-	f90wrap -m aepy aeio.f90 aenet.f90 constants.f90 geometry.f90 input.f90 optimize.f90 potential.f90 random.f90 sfsetup.f90 trainset.f90 ext/chebyshev.f90 ext/feedforward.f90 ext/io.f90 ext/lclist.f90 ext/sfbasis.f90 ext/sortlib.f90 ext/symmfunc.f90 ext/timing.f90 ext/xsflib.f90
-	make -f makefiles/Makefile.gfortran_serial
-	patch < ../../f90wrap_lclist.patch
-	patch < ../../f90wrap_aenet.patch
-	patch < ../../f90wrap_potential.patch
-	patch < ../../f90wrap_sfsetup.patch
+	if [ ! -d "aenet" ]; then git clone https://github.com/berkonat/aenet.git; fi; \
+	cd aenet/src && \
+	rm -rf f90wrap_*.f90 && \
+	f90wrap -m aepy aeio.f90 aenet.f90 constants.f90 geometry.f90 input.f90 optimize.f90 potential.f90 random.f90 sfsetup.f90 trainset.f90 ext/chebyshev.f90 ext/feedforward.f90 ext/io.f90 ext/lclist.f90 ext/sfbasis.f90 ext/sortlib.f90 ext/symmfunc.f90 ext/timing.f90 ext/xsflib.f90 && \
+	make clean && \
+	cd ../lib && make && cd ../src && \
+	make -f ../../Makefile.gfortran_serial && \
+	patch < ../../f90wrap_lclist.patch && \
+	patch < ../../f90wrap_aenet.patch && \
+	patch < ../../f90wrap_potential.patch && \
+	patch < ../../f90wrap_sfsetup.patch && \
 	f2py-f90wrap --fcompiler=gfortran -I. -c -m _aepy -L../lib/ -llbfgsb -llapack -lblas f90wrap_*.f90 *.o
 
 clean :
