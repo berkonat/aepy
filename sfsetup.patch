@@ -1,0 +1,27 @@
+--- sfsetup.f90	2018-10-06 14:20:06.424788000 +0100
++++ sfsetup_new.f90	2018-10-06 17:24:02.533749000 +0100
+@@ -58,15 +58,21 @@
+              stp_nsf_max,           &
+              stp_print_info,        &
+              stp_assert_init,       &
+-             stp_assert_moduleinit
+-
+-  private :: read_basis_chebyshev,       &
++             stp_assert_moduleinit, &  
++             read_basis_chebyshev,       &
+              setup_basis_chebyshev,      &
+              print_info_chebyshev,       &
+              read_symmfunc_Behler2011,   &
+              setup_symmfunc_Behler2011,  &
+              print_info_Behler2011
+ 
++!  private :: read_basis_chebyshev,       &
++!             setup_basis_chebyshev,      &
++!             print_info_chebyshev,       &
++!             read_symmfunc_Behler2011,   &
++!             setup_symmfunc_Behler2011,  &
++!             print_info_Behler2011
++
+   !--------------------------------------------------------------------!
+   !                    structural fingerprint setup                    !
+   !--------------------------------------------------------------------!
