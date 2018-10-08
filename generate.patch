@@ -1,0 +1,29 @@
+--- generate.f90	2018-10-08 17:22:19.924088000 +0100
++++ generate_new.f90	2018-10-08 17:22:07.187129000 +0100
+@@ -173,7 +173,7 @@
+      write(*,*) 'Timing info will be written to: ', 'generate.time'
+      write(*,*)
+   end if
+-  if (do_debug) then
++  if (inp%do_debug) then
+      u_dbg = io_unit()
+      open(u_dbg, file='generate.debug', status='replace', action='write')
+   end if
+@@ -335,7 +335,7 @@
+         call stp_eval(itype1, cooCart(iatom), nnb, nbcoo, nbtype, &
+                       stp(itype1), sfval=sfval)
+ 
+-        if (do_debug) then
++        if (inp%do_debug) then
+            do idbg = 1, stp(itype1)%nsf
+               write(u_dbg,'(1x,ES15.8,1x)', advance='no') sfval(idbg)
+            end do
+@@ -443,7 +443,7 @@
+     if (allocated(nbcoo)) deallocate(nbcoo, nbdist)
+ 
+     if (inp%do_timing) call tng_final()
+-    if (do_debug)  close(u_dbg)
++    if (inp%do_debug)  close(u_dbg)
+ 
+     call aeio_header(aeio_timestamp(), char=' ')
+     call aeio_header("Training set generation done.", char='=')
