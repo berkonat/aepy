@@ -1,11 +1,11 @@
---- f90wrap_sfsetup.f90	2018-10-03 15:57:27.445481000 +0100
-+++ f90wrap_sfsetup_new.f90	2018-10-03 16:42:57.529380000 +0100
+--- f90wrap_sfsetup.f90	2018-10-08 17:27:31.660866000 +0100
++++ f90wrap_sfsetup_new.f90	2018-10-08 17:27:26.363143000 +0100
 @@ -553,7 +553,7 @@
      implicit none
      
      type setup_xntypes_array
 -        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
++        type(setup), dimension(:), allocatable :: items
      end type setup_xntypes_array
      
      type setup_xntypes_array_ptr_type
@@ -14,7 +14,7 @@
      
      type setup_xntypes_array
 -        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
++        type(setup), dimension(:), allocatable :: items
      end type setup_xntypes_array
      
      type setup_xntypes_array_ptr_type
@@ -23,52 +23,99 @@
      
      type setup_xntypes_array
 -        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
++        type(setup), dimension(:), allocatable :: items
      end type setup_xntypes_array
      
      type setup_xntypes_array_ptr_type
-@@ -637,7 +637,7 @@
+@@ -632,12 +632,13 @@
+     f90wrap_n = size(this_ptr%p%items)
+ end subroutine f90wrap_setup_xntypes_array__array_len__items
+ 
+-subroutine f90wrap_setup_xntypes_array_initialise(this)
++subroutine f90wrap_setup_xntypes_array_initialise(ntypes, this)
+     use sfsetup, only: setup
+     implicit none
+     
++    integer, intent(in) :: ntypes
+     type setup_xntypes_array
+-        type(setup), dimension(ntypes) :: items
++        type(setup), dimension(:), allocatable :: items
+     end type setup_xntypes_array
+     
+     type setup_xntypes_array_ptr_type
+@@ -646,6 +647,7 @@
+     type(setup_xntypes_array_ptr_type) :: this_ptr
+     integer, intent(out), dimension(2) :: this
+     allocate(this_ptr%p)
++    allocate(this_ptr%p%items(ntypes))
+     this = transfer(this_ptr, this)
+ end subroutine f90wrap_setup_xntypes_array_initialise
+ 
+@@ -654,7 +656,7 @@
      implicit none
      
      type setup_xntypes_array
 -        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
++        type(setup), dimension(:), allocatable :: items
      end type setup_xntypes_array
      
      type setup_xntypes_array_ptr_type
-@@ -654,7 +654,7 @@
+@@ -663,6 +665,7 @@
+     type(setup_xntypes_array_ptr_type) :: this_ptr
+     integer, intent(in), dimension(2) :: this
+     this_ptr = transfer(this, this_ptr)
++    deallocate(this_ptr%p%items)
+     deallocate(this_ptr%p)
+ end subroutine f90wrap_setup_xntypes_array_finalise
+ 
+@@ -808,14 +811,14 @@
+     use sfsetup, only: setup, stp_init
      implicit none
      
++    integer, intent(in) :: ntypes
      type setup_xntypes_array
 -        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
++        type(setup), dimension(:), allocatable :: items
      end type setup_xntypes_array
      
      type setup_xntypes_array_ptr_type
-@@ -809,7 +809,7 @@
+         type(setup_xntypes_array), pointer :: p => NULL()
+     end type setup_xntypes_array_ptr_type
+-    integer, intent(in) :: ntypes
+     type(setup_xntypes_array_ptr_type) :: stp_ptr
+     integer, intent(in), dimension(2) :: stp
+     integer, intent(in) :: n_nb_max
+@@ -827,14 +830,14 @@
+     use sfsetup, only: setup, stp_final
      implicit none
      
++    integer, intent(in) :: ntypes
      type setup_xntypes_array
 -        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
++        type(setup), dimension(:), allocatable :: items
      end type setup_xntypes_array
      
      type setup_xntypes_array_ptr_type
-@@ -828,7 +828,7 @@
+         type(setup_xntypes_array), pointer :: p => NULL()
+     end type setup_xntypes_array_ptr_type
+-    integer, intent(in) :: ntypes
+     type(setup_xntypes_array_ptr_type) :: stp_ptr
+     integer, intent(in), dimension(2) :: stp
+     stp_ptr = transfer(stp, stp_ptr)
+@@ -845,14 +848,14 @@
+     use sfsetup, only: stp_get_range, setup
      implicit none
      
++    integer, intent(in) :: ntypes
      type setup_xntypes_array
 -        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
++        type(setup), dimension(:), allocatable :: items
      end type setup_xntypes_array
      
      type setup_xntypes_array_ptr_type
-@@ -846,7 +846,7 @@
-     implicit none
-     
-     type setup_xntypes_array
--        type(setup), dimension(ntypes) :: items
-+        type(setup), dimension(20) :: items
-     end type setup_xntypes_array
-     
-     type setup_xntypes_array_ptr_type
+         type(setup_xntypes_array), pointer :: p => NULL()
+     end type setup_xntypes_array_ptr_type
+-    integer, intent(in) :: ntypes
+     type(setup_xntypes_array_ptr_type) :: stp_ptr
+     integer, intent(in), dimension(2) :: stp
+     double precision, intent(out) :: rc_min
