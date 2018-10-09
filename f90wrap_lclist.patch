@@ -1,6 +1,49 @@
---- f90wrap_lclist.f90	2018-10-02 17:40:17.140620000 +0100
-+++ f90wrap_lclist_new.f90	2018-10-02 17:40:47.188941000 +0100
-@@ -168,7 +168,7 @@
+--- f90wrap_lclist.f90	2018-10-06 17:23:07.703590000 +0100
++++ f90wrap_lclist_new.f90	2018-10-09 11:06:14.961659000 +0100
+@@ -43,13 +43,13 @@
+     ret_nmax = lcl_nmax_nblist()
+ end subroutine f90wrap_lcl_nmax_nblist
+ 
+-subroutine f90wrap_lcl_nmax_nbdist(rmin, ret_nmax, rmax)
++subroutine f90wrap_lcl_nmax_nbdist(rmin, rmax, ret_nmax)
+     use lclist, only: lcl_nmax_nbdist
+     implicit none
+     
+     double precision, intent(in) :: rmin
+-    integer, intent(out) :: ret_nmax
+     double precision, intent(in) :: rmax
++    integer, intent(out) :: ret_nmax
+     ret_nmax = lcl_nmax_nbdist(rmin=rmin, rmax=rmax)
+ end subroutine f90wrap_lcl_nmax_nbdist
+ 
+@@ -95,7 +95,7 @@
+ end subroutine f90wrap_lcl_nbdist
+ 
+ subroutine f90wrap_lcl_nbdist_cart(iatom, nnb, nbcoo, nbdist, r_cut, itype, &
+-    nblist, nbtype, stat, n0, n1, n2, n3)
++    nblist, nbtype, stat, nnb2, n0, n1, n2, n3)
+     use lclist, only: lcl_nbdist_cart
+     implicit none
+     
+@@ -107,7 +107,8 @@
+     integer, optional, intent(in) :: itype
+     integer, optional, intent(inout), dimension(n2) :: nblist
+     integer, optional, intent(inout), dimension(n3) :: nbtype
+-    integer, optional, intent(out) :: stat
++    integer, optional, intent(inout) :: stat
++    integer, intent(out) :: nnb2
+     integer :: n0
+     !f2py intent(hide), depend(nbcoo) :: n0 = shape(nbcoo,1)
+     integer :: n1
+@@ -118,6 +119,7 @@
+     !f2py intent(hide), depend(nbtype) :: n3 = shape(nbtype,0)
+     call lcl_nbdist_cart(iatom=iatom, nnb=nnb, nbcoo=nbcoo, nbdist=nbdist, &
+         r_cut=r_cut, itype=itype, nblist=nblist, nbtype=nbtype, stat=stat)
++    nnb2 = nnb
+ end subroutine f90wrap_lcl_nbdist_cart
+ 
+ subroutine f90wrap_delete_redundant_cell_vecs(cvec, ncvecs, n0, n1)
+@@ -168,7 +170,7 @@
      ret_dist = cell_distance_squared(T=t, avec=avec)
  end subroutine f90wrap_cell_distance_squared
  
@@ -9,7 +52,7 @@
      use lclist, only: in_list
      implicit none
      
-@@ -182,7 +182,7 @@
+@@ -182,7 +184,7 @@
      integer :: n2
      !f2py intent(hide), depend(list) :: n2 = shape(list,1)
      ret_in_ = in_list(vec=vec, list=list)
