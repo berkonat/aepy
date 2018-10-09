@@ -24,6 +24,7 @@ all:
 	if [ ! -d "aenet" ]; then git clone https://github.com/berkonat/aenet.git; fi; \
 	cd aenet/src && \
 	patch < ../../sfsetup.patch && \
+	patch < ../../generate.patch && \
 	rm -rf f90wrap_*.f90 && \
 	f90wrap -m aepy aeio.f90 aenet.f90 constants.f90 geometry.f90 input.f90 optimize.f90 potential.f90 random.f90 sfsetup.f90 trainset.f90 ext/chebyshev.f90 ext/feedforward.f90 ext/io.f90 ext/lclist.f90 ext/sfbasis.f90 ext/sortlib.f90 ext/symmfunc.f90 ext/timing.f90 ext/xsflib.f90 && \
 	make clean && \
