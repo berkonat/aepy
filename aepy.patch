@@ -1,0 +1,34 @@
+--- aepy.py	2018-10-09 12:11:49.565407000 +0100
++++ aepy_new.py	2018-10-09 12:15:04.822025000 +0100
+@@ -4422,7 +4422,7 @@
+         super-type
+         Automatically generated to handle derived type arrays as a new derived type
+         """
+-        def __init__(self, handle=None):
++        def __init__(self, ntypes, handle=None):
+             """
+             self = Setup_Xntypes_Array()
+             
+@@ -4439,7 +4439,7 @@
+             Automatically generated constructor for setup_xntypes_array
+             """
+             f90wrap.runtime.FortranDerivedType.__init__(self)
+-            self._handle = _aepy.f90wrap_setup_xntypes_array_initialise()
++            self._handle = _aepy.f90wrap_setup_xntypes_array_initialise(ntypes=ntypes)
+         
+         def __del__(self):
+             """
+@@ -7325,9 +7325,10 @@
+         stat : int
+         
+         """
+-        stat = _aepy.f90wrap_lcl_nbdist_cart(iatom=iatom, nnb=nnb, nbcoo=nbcoo, \
+-            nbdist=nbdist, r_cut=r_cut, itype=itype, nblist=nblist, nbtype=nbtype)
+-        return stat
++	stat = -1
++        nnb = _aepy.f90wrap_lcl_nbdist_cart(iatom=iatom, nnb=nnb, nbcoo=nbcoo, \
++            nbdist=nbdist, r_cut=r_cut, itype=itype, nblist=nblist, nbtype=nbtype, stat=stat)
++        return nnb, stat
+     
+     @staticmethod
+     def delete_redundant_cell_vecs(cvec, ncvecs):
