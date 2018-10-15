@@ -1,4 +1,4 @@
-import aepy
+import aepy.aepy_fbind as aepy
 import numpy as np
 from ase import Atoms
 from ase.io import read
@@ -13,8 +13,8 @@ types = ['Ti', 'O']
 #    ]
 
 files = [
-    "../../../../aenet-example-01-TiO2/01-generate/Ti.fingerprint.stp",
-    "../../../../aenet-example-01-TiO2/01-generate/O.fingerprint.stp"
+    "tests/Ti.fingerprint.stp",
+    "tests/O.fingerprint.stp"
     ]
 
 ntypes = len(types)
@@ -62,8 +62,7 @@ nbtype = np.zeros(nnb_max, dtype=np.int32, order='F')
 #sfderiv_i = np.asfortranarray(np.zeros((3,nsf_max), dtype=np.float32))
 #sfderiv_j = np.asfortranarray(np.zeros((3,nsf_max,nnb_max), dtype=np.float32))
 
-#db = read('../../../../aenet-example-02-TiO2-Chebyshev/TiO2-xsf/structure0001.xsf')
-db = read('../../../../aenet-example-01-TiO2/xsf/structure0001.xsf')
+db = read('tests/structure0001.xsf')
 if isinstance(db, Atoms):
     pbc = True if np.any(db.pbc) else False
     atomType = np.array([tdict[i] for i in db.get_chemical_symbols()], dtype=np.int32)

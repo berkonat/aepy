@@ -1,5 +1,12 @@
---- aepy.py	2018-10-09 12:11:49.565407000 +0100
-+++ aepy_new.py	2018-10-09 12:15:04.822025000 +0100
+--- aepy.py	2018-10-09 15:14:22.914182000 +0100
++++ aepy_new.py	2018-10-09 15:15:30.877601000 +0100
+@@ -1,5 +1,5 @@
+ from __future__ import print_function, absolute_import, division
+-import _aepy
++from . import _aepy
+ import f90wrap.runtime
+ import logging
+ 
 @@ -4422,7 +4422,7 @@
          super-type
          Automatically generated to handle derived type arrays as a new derived type

@@ -21,7 +21,8 @@
 .PHONY: all
 
 all:
-	if [ ! -d "aenet" ]; then git clone https://github.com/atomisticnet/aenet.git; cd aenet; git checkout v2.0.3; git pull; fi; \
+	if [ -d "aenet" ]; then rm -rf aenet; fi; \
+	git clone https://github.com/atomisticnet/aenet.git; cd aenet; git checkout v2.0.3; git pull; \
 	cd src && \
 	patch < ../../sfsetup.patch && \
 	patch < ../../generate.patch && \
@@ -36,7 +37,8 @@ all:
 	patch < ../../f90wrap_sfsetup.patch && \
 	f2py-f90wrap --fcompiler=gfortran -I. -c -m _aepy -L../lib/ -llbfgsb -llapack -lblas f90wrap_*.f90 *.o && \
 	patch < ../../aepy.patch && \
-	cp ../../aepy_desc.py .
+	cp aepy.py ../../aepy/aepy_fbind.py && \
+	cp _aepy.so ../../aepy/.
 
 
 clean :
